@@ -24,7 +24,7 @@ public sealed partial class LanguageSystem : SharedLanguageSystem
         base.Initialize();
 
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnInitLanguageSpeaker);
-        SubscribeLocalEvent<LanguageKnowledgeComponent, RadioReceiveEvent>(OnRadioReceiveEvent);
+        SubscribeLocalEvent<LanguageSpeakerComponent, RadioReceiveEvent>(OnRadioReceiveEvent);
         SubscribeLocalEvent<UniversalLanguageSpeakerComponent, DetermineEntityLanguagesEvent>(OnDetermineUniversalLanguages);
         SubscribeNetworkEvent<LanguagesSetMessage>(OnClientSetLanguage);
 
@@ -43,9 +43,7 @@ public sealed partial class LanguageSystem : SharedLanguageSystem
     }
 
     private void OnDetermineUniversalLanguages(Entity<UniversalLanguageSpeakerComponent> entity, ref DetermineEntityLanguagesEvent ev)
-    {
-        ev.SpokenLanguages.Add(UniversalPrototype);
-    }
+        => ev.SpokenLanguages.Add(UniversalPrototype);
 
     private void OnClientSetLanguage(LanguagesSetMessage message, EntitySessionEventArgs args)
     {
@@ -74,7 +72,7 @@ public sealed partial class LanguageSystem : SharedLanguageSystem
         _radioSystem.SendRadioMessage(source, message, channel, source, language);
     }
 
-    private void OnRadioReceiveEvent(EntityUid uid, LanguageKnowledgeComponent _, ref RadioReceiveEvent args)
+    private void OnRadioReceiveEvent(EntityUid uid, LanguageSpeakerComponent _, ref RadioReceiveEvent args)
     {
         if (args.Language.Speech.RadioChannel is null
             || args.Channel is null
