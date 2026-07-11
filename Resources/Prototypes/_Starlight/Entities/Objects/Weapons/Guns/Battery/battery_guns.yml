@@ -36,6 +36,7 @@
     magState: disable
     steps: 5
     zeroVisible: true
+  - type: PacifismAllowedGun
   - type: BatteryAmmoProvider
     proto: DisablerBolt
     fireCost: 50
@@ -1113,6 +1114,10 @@
           fireCost: 40
           magState: disable
           visualState: disable-unshaded
+        - proto: TaserBolt # same as X-01
+          fireCost: 100
+          magState: stun
+          visualState: stun-unshaded
         - proto: RedHeavyLaser # Does more damage but costs more energy. 8 shots per full charge
           fireCost: 200
           magState: kill
